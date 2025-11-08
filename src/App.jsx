@@ -1,23 +1,29 @@
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Features from './components/Features';
-import CTA from './components/CTA';
+import Platform from './components/Platform';
+import Showcase from './components/Showcase';
+import AISection from './components/AISection';
+import Pricing from './components/Pricing';
 
 function App() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 antialiased">
+    <div className="min-h-screen bg-black text-white antialiased">
       <Navbar />
       <main>
         <Hero />
-        <Features />
-        <CTA />
+        <Platform />
+        <Showcase />
+        <AISection />
+        <Pricing />
       </main>
-      <footer className="py-10 border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-sm text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p>© {new Date().getFullYear()} Vibe Starter. All rights reserved.</p>
+      <footer className="border-t border-white/10 py-10">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 text-sm text-slate-400 sm:flex-row sm:px-6 lg:px-8">
+          <p>© {new Date().getFullYear()} OrbitX. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <a className="hover:text-slate-700" href="#features">Features</a>
-            <a className="hover:text-slate-700" href="#get-started">Get Started</a>
+            <a className="hover:text-white" href="#platform">Platform</a>
+            <a className="hover:text-white" href="#blockchain">Blockchain Certs</a>
+            <a className="hover:text-white" href="#ai">AI</a>
+            <a className="hover:text-white" href="#pricing">Pricing</a>
           </div>
         </div>
       </footer>
