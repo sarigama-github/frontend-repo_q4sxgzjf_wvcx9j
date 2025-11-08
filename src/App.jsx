@@ -1,13 +1,27 @@
+import { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Platform from './components/Platform';
 import Showcase from './components/Showcase';
 import AISection from './components/AISection';
 import Pricing from './components/Pricing';
+import DemoRequestModal from './components/DemoRequestModal';
+import Admin from './components/Admin';
 
-function App() {
+function Landing({ onOpenDemo }) {
+  // Listen for clicks to #demo to open modal
+  useEffect(() => {
+    const handler = () => {
+      if (window.location.hash === '#demo') onOpenDemo();
+    };
+    window.addEventListener('hashchange', handler);
+    // open if already #demo
+    if (window.location.hash === '#demo') onOpenDemo();
+    return () => window.removeEventListener('hashchange', handler);
+  }, [onOpenDemo]);
+
   return (
-    <div className="min-h-screen bg-black text-white antialiased">
+    <>
       <Navbar />
       <main>
         <Hero />
@@ -27,6 +41,42 @@ function App() {
           </div>
         </div>
       </footer>
+    </>
+  );
+}
+
+function App() {
+  const [demoOpen, setDemoOpen] = useState(false);
+  const [route, setRoute] = useState(() => window.location.hash);
+
+  useEffect(() => {
+    const onHash = () => setRoute(window.location.hash);
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+
+  const closeDemo = () => {
+    setDemoOpen(false);
+    if (window.location.hash === '#demo') history.replaceState(null, '', ' ');
+  };
+
+  const onSubmitted = () => {
+    // keep modal open to show success; could auto-close if desired
+  };
+
+  // Simple hash routing: #admin shows the admin console
+  if (route === '#admin') {
+    return (
+      <div className="min-h-screen bg-black text-white antialiased">
+        <Admin />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-black text-white antialiased">
+      <Landing onOpenDemo={() => setDemoOpen(true)} />
+      <DemoRequestModal open={demoOpen} onClose={closeDemo} onSubmitted={onSubmitted} />
     </div>
   );
 }
